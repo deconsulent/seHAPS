@@ -1,4 +1,73 @@
-[2026-10-24T11:43:56.475654+00:00] Starting build_V3_update
-[2026-10-24T11:43:56.475748+00:00] Source: /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V2.FCStd
-[2026-10-24T11:43:56.475829+00:00] Outputs: /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V3.FCStd, /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V3_FULL.STEP
-[2026-10-24T11:43:56.476053+00:00] ERROR: FreeCAD Python modules are unavailable: No module named 'FreeCAD'
+[2026-10-24T12:31:34.506315+00:00] Starting build_V3_update
+[2026-10-24T12:31:34.506367+00:00] Source: /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V2.FCStd
+[2026-10-24T12:31:34.506394+00:00] Outputs: /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V3.FCStd, /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V3_FULL.STEP
+[2026-10-24T12:31:35.873107+00:00] Opened doc=V1_2_FIXED_V2 objects=398
+[2026-10-24T12:31:35.927147+00:00] hid lift_MN3510_V2_0
+[2026-10-24T12:31:35.927271+00:00] hid lift_MN3510_V2_1
+[2026-10-24T12:31:35.927302+00:00] hid lift_MN3510_V2_2
+[2026-10-24T12:31:35.927328+00:00] hid lift_MN3510_V2_3
+[2026-10-24T12:31:35.927406+00:00] hid bldc_motor_Varsayilan
+[2026-10-24T12:31:35.927443+00:00] hid child Part__Feature166
+[2026-10-24T12:31:35.927463+00:00] hid child Part__Feature167
+[2026-10-24T12:31:35.927481+00:00] hid child Part__Feature168
+[2026-10-24T12:31:35.927501+00:00] hid child Part__Feature169
+[2026-10-24T12:31:35.927523+00:00] hid child Part__Feature170
+[2026-10-24T12:31:35.927544+00:00] hid child Part__Feature171
+[2026-10-24T12:31:35.927562+00:00] hid child Part__Feature172
+[2026-10-24T12:31:35.927586+00:00] hid bldc_motor_Varsayilan001
+[2026-10-24T12:31:35.927609+00:00] hid child Part__Feature176
+[2026-10-24T12:31:35.927628+00:00] hid child Part__Feature177
+[2026-10-24T12:31:35.927647+00:00] hid child Part__Feature178
+[2026-10-24T12:31:35.927666+00:00] hid child Part__Feature179
+[2026-10-24T12:31:35.927684+00:00] hid child Part__Feature180
+[2026-10-24T12:31:35.927715+00:00] hid child Part__Feature181
+[2026-10-24T12:31:35.927736+00:00] hid child Part__Feature182
+[2026-10-24T12:31:35.927758+00:00] hid bldc_motor_Varsayilan002
+[2026-10-24T12:31:35.927779+00:00] hid child Part__Feature186
+[2026-10-24T12:31:35.927797+00:00] hid child Part__Feature187
+[2026-10-24T12:31:35.927817+00:00] hid child Part__Feature188
+[2026-10-24T12:31:35.927834+00:00] hid child Part__Feature189
+[2026-10-24T12:31:35.927855+00:00] hid child Part__Feature190
+[2026-10-24T12:31:35.927873+00:00] hid child Part__Feature191
+[2026-10-24T12:31:35.927892+00:00] hid child Part__Feature192
+[2026-10-24T12:31:35.927914+00:00] hid bldc_motor_Varsayilan003
+[2026-10-24T12:31:35.927936+00:00] hid child Part__Feature196
+[2026-10-24T12:31:35.927956+00:00] hid child Part__Feature197
+[2026-10-24T12:31:35.927974+00:00] hid child Part__Feature198
+[2026-10-24T12:31:35.927993+00:00] hid child Part__Feature199
+[2026-10-24T12:31:35.928012+00:00] hid child Part__Feature200
+[2026-10-24T12:31:35.928030+00:00] hid child Part__Feature201
+[2026-10-24T12:31:35.928047+00:00] hid child Part__Feature202
+[2026-10-24T12:31:35.928068+00:00] hid prop_front_pos
+[2026-10-24T12:31:35.928090+00:00] hid prop_front_neg
+[2026-10-24T12:31:35.928109+00:00] hid prop_rear_pos
+[2026-10-24T12:31:35.928129+00:00] hid prop_rear_neg
+[2026-10-24T12:31:35.928148+00:00] hid rear_AT2814_V2
+[2026-10-24T12:31:35.928169+00:00] hid pusher_motor
+[2026-10-24T12:31:35.928191+00:00] hid pusher_motorcap
+[2026-10-24T12:31:35.928210+00:00] hid pusher_prop
+[2026-10-24T12:31:35.928231+00:00] hid esc_4in1_45A_V2
+[2026-10-24T12:31:35.928249+00:00] hid esc_rear_30A_V2
+[2026-10-24T12:31:35.932568+00:00] added V3_lift_motor_MN4014_0: label=V3_lift_motor_MN4014_0 [ENVELOPE D48.0x36.0]
+[2026-10-24T12:31:35.936149+00:00] added V3_lift_motor_MN4014_1: label=V3_lift_motor_MN4014_1 [ENVELOPE D48.0x36.0]
+[2026-10-24T12:31:35.939676+00:00] added V3_lift_motor_MN4014_2: label=V3_lift_motor_MN4014_2 [ENVELOPE D48.0x36.0]
+[2026-10-24T12:31:35.943178+00:00] added V3_lift_motor_MN4014_3: label=V3_lift_motor_MN4014_3 [ENVELOPE D48.0x36.0]
+[2026-10-24T12:31:35.943330+00:00] added V3_lift_prop_disk_0: label=V3_lift_prop_disk_0 [D=431.8mm]
+[2026-10-24T12:31:35.943467+00:00] added V3_prop_brake_pin_housing_0: label=V3_prop_brake_pin_housing
+[2026-10-24T12:31:35.943589+00:00] added V3_lift_prop_disk_1: label=V3_lift_prop_disk_1 [D=431.8mm]
+[2026-10-24T12:31:35.943740+00:00] added V3_prop_brake_pin_housing_1: label=V3_prop_brake_pin_housing
+[2026-10-24T12:31:35.943880+00:00] added V3_lift_prop_disk_2: label=V3_lift_prop_disk_2 [D=431.8mm]
+[2026-10-24T12:31:35.944017+00:00] added V3_prop_brake_pin_housing_2: label=V3_prop_brake_pin_housing
+[2026-10-24T12:31:35.944145+00:00] added V3_lift_prop_disk_3: label=V3_lift_prop_disk_3 [D=431.8mm]
+[2026-10-24T12:31:35.944285+00:00] added V3_prop_brake_pin_housing_3: label=V3_prop_brake_pin_housing
+[2026-10-24T12:31:35.944533+00:00] added V3_rear_motor_AT3520: label=V3_rear_motor_AT3520 [ENVELOPE D42.0x50.0]
+[2026-10-24T12:31:35.944666+00:00] added V3_rear_prop_APC_13x6_5: label=V3_rear_prop_APC_13x6_5 [D=330.2mm]
+[2026-10-24T12:31:35.944829+00:00] added V3_esc_lift_4in1: label=V3_esc_lift_4in1 [40x33x5]
+[2026-10-24T12:31:35.944962+00:00] added V3_esc_rear_single: label=V3_esc_rear_single [50x21.6x12]
+[2026-10-24T12:31:35.945102+00:00] added V3_ubec_duo: label=V3_ubec_duo [58x36x8]
+[2026-10-24T12:31:35.945239+00:00] added V3_pm07: label=V3_pm07 [68x50x10]
+[2026-10-24T12:31:35.945376+00:00] added V3_fuse_125A_holder: label=V3_fuse_125A_holder
+[2026-10-24T12:31:35.945508+00:00] added V3_xt90s: label=V3_xt90s
+[2026-10-24T12:31:40.304208+00:00] Saved FCStd: /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V3.FCStd
+[2026-10-24T12:31:42.037399+00:00] Saved STEP: /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V3_FULL.STEP
+[2026-10-24T12:31:42.039179+00:00] DONE_V3

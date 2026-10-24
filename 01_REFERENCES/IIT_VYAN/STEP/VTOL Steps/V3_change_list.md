@@ -1,0 +1,37 @@
+# V3 Change List
+
+- HIDE: lift_MN3510_V2_0 (lift_motor_parts)
+- HIDE: lift_MN3510_V2_1 (lift_motor_parts)
+- HIDE: lift_MN3510_V2_2 (lift_motor_parts)
+- HIDE: lift_MN3510_V2_3 (lift_motor_parts)
+- HIDE: bldc_motor_Varsayilan (lift_motor_parts)
+- HIDE: bldc_motor_Varsayilan001 (lift_motor_parts)
+- HIDE: bldc_motor_Varsayilan002 (lift_motor_parts)
+- HIDE: bldc_motor_Varsayilan003 (lift_motor_parts)
+- HIDE: prop_front_pos (lift_props)
+- HIDE: prop_front_neg (lift_props)
+- HIDE: prop_rear_pos (lift_props)
+- HIDE: prop_rear_neg (lift_props)
+- HIDE: rear_AT2814_V2 (rear_motor)
+- HIDE: pusher_motor (rear_motor)
+- HIDE: pusher_motorcap (rear_motor)
+- HIDE: pusher_prop (rear_prop)
+- HIDE: esc_4in1_45A_V2 (escs)
+- HIDE: esc_rear_30A_V2 (escs)
+- ADD: V3_lift_motor_MN4014_0 at X=488.0 Z=405.0
+- ADD: V3_lift_motor_MN4014_1 at X=493.0 Z=-405.0
+- ADD: V3_lift_motor_MN4014_2 at X=-808.0 Z=405.0
+- ADD: V3_lift_motor_MN4014_3 at X=-808.0 Z=-405.0
+- ADD: V3_lift_prop_disk_0; ADD: V3_prop_brake_pin_housing_0 aligned to hub
+- ADD: V3_lift_prop_disk_1; ADD: V3_prop_brake_pin_housing_1 aligned to hub
+- ADD: V3_lift_prop_disk_2; ADD: V3_prop_brake_pin_housing_2 aligned to hub
+- ADD: V3_lift_prop_disk_3; ADD: V3_prop_brake_pin_housing_3 aligned to hub
+- ADD: V3_rear_motor_AT3520 at V2 rear shaft axis
+- ADD: V3_rear_prop_APC_13x6_5
+- ADD: V3_esc_lift_4in1
+- ADD: V3_esc_rear_single
+- ADD: V3_ubec_duo
+- ADD: V3_pm07
+- ADD: V3_fuse_125A_holder
+- ADD: V3_xt90s
+- MOVE: battery_6S2P_V2 by dX=81.02 to target X=51.02
