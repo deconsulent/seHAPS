@@ -1,0 +1,4 @@
+[2026-10-24T11:43:56.475654+00:00] Starting build_V3_update
+[2026-10-24T11:43:56.475748+00:00] Source: /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V2.FCStd
+[2026-10-24T11:43:56.475829+00:00] Outputs: /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V3.FCStd, /home/runner/work/seHAPS/seHAPS/01_REFERENCES/IIT_VYAN/STEP/VTOL Steps/V1_2_FIXED_V3_FULL.STEP
+[2026-10-24T11:43:56.476053+00:00] ERROR: FreeCAD Python modules are unavailable: No module named 'FreeCAD'
