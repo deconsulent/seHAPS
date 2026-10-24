@@ -1,0 +1,37 @@
+name,label,mass_g,x_station_mm,source
+pusher_prop,pusher_prop,20.000,-618.000,V2
+battery_6S2P_V2,battery_6S2P_V2 [ENVELOPE 132x48x80],904.000,51.019,V2
+lift_MN3510_V2_0,lift_MN3510_V2_0 [ENVELOPE D44],120.000,488.000,V2
+lift_MN3510_V2_1,lift_MN3510_V2_1 [ENVELOPE D44],120.000,493.000,V2
+lift_MN3510_V2_2,lift_MN3510_V2_2 [ENVELOPE D44],120.000,-808.000,V2
+lift_MN3510_V2_3,lift_MN3510_V2_3 [ENVELOPE D44],120.000,-808.000,V2
+rear_AT2814_V2,rear_AT2814_V2 [ENVELOPE D36],90.000,-627.000,V2
+esc_4in1_45A_V2,esc_4in1_45A_V2,12.000,132.500,V2
+esc_rear_30A_V2,esc_rear_30A_V2,18.500,177.500,V2
+V3_lift_motor_MN4014_0,V3_lift_motor_MN4014_0 [ENVELOPE D48.0x36.0],171.000,488.000,CAD
+V3_lift_motor_MN4014_1,V3_lift_motor_MN4014_1 [ENVELOPE D48.0x36.0],171.000,493.000,CAD
+V3_lift_motor_MN4014_2,V3_lift_motor_MN4014_2 [ENVELOPE D48.0x36.0],171.000,-808.000,CAD
+V3_lift_motor_MN4014_3,V3_lift_motor_MN4014_3 [ENVELOPE D48.0x36.0],171.000,-808.000,CAD
+V3_lift_prop_disk_0,V3_lift_prop_disk_0 [D=431.8mm],28.000,488.000,CAD
+V3_prop_brake_pin_housing_0,V3_prop_brake_pin_housing,MISSING,488.000,CAD
+V3_lift_prop_disk_1,V3_lift_prop_disk_1 [D=431.8mm],28.000,493.000,CAD
+V3_prop_brake_pin_housing_1,V3_prop_brake_pin_housing001,MISSING,493.000,CAD
+V3_lift_prop_disk_2,V3_lift_prop_disk_2 [D=431.8mm],28.000,-808.000,CAD
+V3_prop_brake_pin_housing_2,V3_prop_brake_pin_housing002,MISSING,-808.000,CAD
+V3_lift_prop_disk_3,V3_lift_prop_disk_3 [D=431.8mm],28.000,-808.000,CAD
+V3_prop_brake_pin_housing_3,V3_prop_brake_pin_housing003,MISSING,-808.000,CAD
+V3_rear_motor_AT3520,V3_rear_motor_AT3520 [ENVELOPE D42.0x50.0],218.000,-643.000,CAD
+V3_rear_prop_APC_13x6_5,V3_rear_prop_APC_13x6_5 [D=330.2mm],30.000,-618.000,CAD
+V3_esc_lift_4in1,V3_esc_lift_4in1 [40x33x5],12.000,135.000,CAD
+V3_esc_rear_single,V3_esc_rear_single [50x21.6x12],18.500,185.000,CAD
+V3_ubec_duo,V3_ubec_duo [58x36x8],32.000,149.000,CAD
+V3_pm07,V3_pm07 [68x50x10],43.800,162.000,CAD
+V3_fuse_125A_holder,V3_fuse_125A_holder,MISSING,161.000,CAD
+V3_xt90s,V3_xt90s,MISSING,200.000,CAD
+
+TOTAL_MASS_G,2674.800
+CG_X_MM,-135.400
+CG_TARGET_MM,-135.400
+CG_WINDOW,"[-143.5,-127.3]"
+lift_prop_diameter_mm,431.800
+lift_prop_mass_g,28.000
