@@ -34,11 +34,13 @@ OUT_CLEARANCE_CSV = ROOT / "V3_clearance_report.csv"
 OUT_CHANGES_MD = ROOT / "V3_change_list.md"
 OUT_PRINT_MD = ROOT / "V3_print_list.md"
 OUT_EXEC_LOG = ROOT / "build_V3_update_execution.log"
+OUT_PRACTICAL_MD = ROOT / "V3_practical_validation.md"
 
 # Safety gates
 MIN_FIXED_CLEARANCE_MM = 15.0
 CG_TARGET_MM = -135.4
 CG_WINDOW_MM = (-143.5, -127.3)
+MAX_REASONABLE_DISTANCE_MM = 1_000_000.0
 
 # Prop selector: changing this one number toggles fallback logic.
 LIFT_PROP_DIAMETER_MM_DEFAULT = 431.8  # 17 in
@@ -135,8 +137,9 @@ class ClearanceResult:
     prop_name: str
     check: str
     target_name: str
-    distance_mm: float
+    distance_mm: Optional[float]
     pass_fail: str
+    note: str = ""
 
 
 @dataclass
@@ -168,7 +171,16 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Build V1_2_FIXED_V3 from V1_2_FIXED_V2")
     p.add_argument("--lift-prop-diameter-mm", type=float, default=LIFT_PROP_DIAMETER_MM_DEFAULT)
     p.add_argument("--battery-x-mm", type=float, default=None)
-    p.add_argument("--force", action="store_true", help="allow outputs even if mandatory checks fail")
+    p.add_argument(
+        "--allow-unverified",
+        action="store_true",
+        help="allow report export with NOT_VERIFIED items; still fails on geometric FAIL rows",
+    )
+    p.add_argument(
+        "--force",
+        action="store_true",
+        help=argparse.SUPPRESS,
+    )
     p.add_argument("--mn4014-diameter-mm", type=float, default=DATASHEET["MN4014_KV400"]["diameter_mm"])
     p.add_argument("--mn4014-height-mm", type=float, default=DATASHEET["MN4014_KV400"]["height_mm"])
     p.add_argument("--at3520-diameter-mm", type=float, default=DATASHEET["AT3520_KV550"]["diameter_mm"])
@@ -313,6 +325,34 @@ def _fits_clearance(box_a, box_b) -> bool:
     )
 
 
+def is_valid_distance_mm(v: Optional[float]) -> bool:
+    return v is not None and math.isfinite(v) and 0.0 <= v <= MAX_REASONABLE_DISTANCE_MM
+
+
+def format_distance_mm(v: Optional[float]) -> str:
+    if v is None:
+        return "MISSING"
+    if not math.isfinite(v):
+        return "INVALID"
+    return f"{v:.3f}"
+
+
+def collect_target_shapes(doc, keys: Sequence[str], exact_names: Sequence[str]) -> List:
+    exact_set = set(exact_names)
+    out = []
+    for o in doc.Objects:
+        n = getattr(o, "Name", "")
+        l = str(getattr(o, "Label", "")).lower()
+        nl = n.lower()
+        if not hasattr(o, "Shape") or o.Shape.isNull():
+            continue
+        if n.startswith("V3_lift_prop_disk") or n == "V3_rear_prop_APC_13x6_5":
+            continue
+        if n in exact_set or any(k in nl or k in l for k in keys):
+            out.append(o)
+    return out
+
+
 def run() -> int:
     args = parse_args()
     logger = Logger(OUT_LOG)
@@ -323,6 +363,7 @@ def run() -> int:
     if not SRC_FCSTD.exists():
         raise BuildError(f"Missing source file: {SRC_FCSTD}")
 
+    allow_unverified = bool(args.allow_unverified or args.force)
     missing_dims = []
     if args.mn4014_diameter_mm is None:
         missing_dims.append("MN4014 diameter")
@@ -358,11 +399,12 @@ def run() -> int:
                 hide_with_children(o, logger)
                 change_list.append(f"HIDE: {n} ({bucket})")
 
-    if missing_dims and not args.force:
+    if missing_dims and not allow_unverified:
         raise BuildError(
             "Required motor dimensions unavailable: "
             + ", ".join(missing_dims)
-            + ". Provide via CLI args (--mn4014-*, --at3520-*) sourced from datasheets."
+            + ". Provide via CLI args (--mn4014-*, --at3520-*) sourced from datasheets, "
+            + "or explicitly use --allow-unverified."
         )
 
     mn_d = float(args.mn4014_diameter_mm or 48.0)
@@ -566,19 +608,26 @@ def run() -> int:
 
     # C/D clearance checks
     fixed_names = {
-        "booms": [o for o in doc.Objects if "boom" in o.Name.lower() and hasattr(o, "Shape") and not o.Shape.isNull()],
-        "wing": [o for o in doc.Objects if "wing" in o.Name.lower() and hasattr(o, "Shape") and not o.Shape.isNull()],
-        "tail": [o for o in doc.Objects if "tail" in o.Name.lower() and hasattr(o, "Shape") and not o.Shape.isNull()],
-        "tail_arms": [o for o in doc.Objects if "arm" in o.Name.lower() and hasattr(o, "Shape") and not o.Shape.isNull()],
-        "pod": [o for o in doc.Objects if "pod" in o.Name.lower() and hasattr(o, "Shape") and not o.Shape.isNull()],
-        "landing_gear": [o for o in doc.Objects if "gear" in o.Name.lower() and hasattr(o, "Shape") and not o.Shape.isNull()],
+        "booms": collect_target_shapes(
+            doc, keys=("boom", "mount_"), exact_names=("pusher_boom", "mount_front_pos", "mount_front_neg", "mount_rear_pos", "mount_rear_neg")
+        ),
+        "wing": collect_target_shapes(doc, keys=("wing", "aileron", "spar", "rib", "trailing_edge"), exact_names=()),
+        "tail": collect_target_shapes(doc, keys=("tail", "vtail"), exact_names=("vtail",)),
+        "tail_arms": collect_target_shapes(doc, keys=("tail_arm", "tailarm", "tail_mount"), exact_names=()),
+        "pod": collect_target_shapes(doc, keys=("pod", "fuselage"), exact_names=("V3_pod_shell_hatch",)),
+        "landing_gear": collect_target_shapes(doc, keys=("landing", "gear", "wheel", "skid", "strut", "leg"), exact_names=()),
     }
 
     clearance_rows: List[ClearanceResult] = []
 
-    def record(prop_name: str, check: str, target_name: str, dist_mm: float):
-        pf = "PASS" if dist_mm >= MIN_FIXED_CLEARANCE_MM else "FAIL"
-        clearance_rows.append(ClearanceResult(prop_name, check, target_name, dist_mm, pf))
+    def record(prop_name: str, check: str, target_name: str, dist_mm: Optional[float], note: str = ""):
+        if not is_valid_distance_mm(dist_mm):
+            pf = "NOT_VERIFIED"
+        elif dist_mm >= MIN_FIXED_CLEARANCE_MM:
+            pf = "PASS"
+        else:
+            pf = "FAIL"
+        clearance_rows.append(ClearanceResult(prop_name, check, target_name, dist_mm, pf, note))
 
     rear_shape = rear_prop_obj.Shape
     for i, p in enumerate(lift_prop_objs):
@@ -586,7 +635,7 @@ def run() -> int:
         for k in ("booms", "wing", "tail", "tail_arms", "pod"):
             targets = fixed_names[k]
             if not targets:
-                record(p.Name, k, "MISSING_TARGET", float("inf"))
+                record(p.Name, k, "MISSING_TARGET", None, "Target set not found in CAD by configured selectors")
                 continue
             d = min(shape_distance(pshape, t.Shape) for t in targets)
             record(p.Name, k, k, d)
@@ -606,19 +655,31 @@ def run() -> int:
     if tail_targets:
         d_tail = min(shape_distance(rear_shape, t.Shape) for t in tail_targets)
         record(rear_prop_obj.Name, "rear_to_vtail", "tail", d_tail)
+    else:
+        record(rear_prop_obj.Name, "rear_to_vtail", "MISSING_TARGET", None, "V-tail target not found")
 
-    # Ground estimate from landing gear if present else global minimum Y
-    all_shapes = [o.Shape for o in doc.Objects if hasattr(o, "Shape") and not o.Shape.isNull()]
-    global_ground_y = min(s.BoundBox.YMin for s in all_shapes) if all_shapes else 0.0
+    # Ground plane from identified landing-gear geometry only.
+    landing_targets = fixed_names["landing_gear"]
+    ground_y = None
+    if landing_targets:
+        candidate_y = min(float(t.Shape.BoundBox.YMin) for t in landing_targets)
+        if math.isfinite(candidate_y) and abs(candidate_y) <= MAX_REASONABLE_DISTANCE_MM:
+            ground_y = candidate_y
 
     for p in lift_prop_objs:
-        cx, cy, cz = _center(p.Shape)
-        tip_to_ground = cy - global_ground_y
-        record(p.Name, "tip_to_ground", "ground", tip_to_ground)
-    rear_tip_to_ground = (rear_prop_obj.Shape.BoundBox.YMin) - global_ground_y
-    record(rear_prop_obj.Name, "tip_to_ground", "ground", rear_tip_to_ground)
+        tip_y = float(p.Shape.BoundBox.YMin)
+        if ground_y is None:
+            record(p.Name, "tip_to_ground", "ground", None, "Landing gear geometry not identified")
+        else:
+            record(p.Name, "tip_to_ground", "ground", tip_y - ground_y, "Axis: +Y up; ground from landing-gear YMin")
+    if ground_y is None:
+        record(rear_prop_obj.Name, "tip_to_ground", "ground", None, "Landing gear geometry not identified")
+    else:
+        rear_tip_to_ground = float(rear_prop_obj.Shape.BoundBox.YMin) - ground_y
+        record(rear_prop_obj.Name, "tip_to_ground", "ground", rear_tip_to_ground, "Axis: +Y up; ground from landing-gear YMin")
 
     any_fail = any(r.pass_fail == "FAIL" for r in clearance_rows)
+    any_not_verified = any(r.pass_fail == "NOT_VERIFIED" for r in clearance_rows)
 
     # Build mass table.
     mass_rows: List[MassRow] = []
@@ -677,9 +738,9 @@ def run() -> int:
 
     with OUT_CLEARANCE_CSV.open("w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["prop", "check", "target", "distance_mm", "pass_fail"])
+        w.writerow(["prop", "check", "target", "distance_mm", "pass_fail", "note"])
         for r in clearance_rows:
-            w.writerow([r.prop_name, r.check, r.target_name, f"{r.distance_mm:.3f}", r.pass_fail])
+            w.writerow([r.prop_name, r.check, r.target_name, format_distance_mm(r.distance_mm), r.pass_fail, r.note])
 
     with OUT_CHANGES_MD.open("w", encoding="utf-8") as f:
         f.write("# V3 Change List\n\n")
@@ -692,14 +753,34 @@ def run() -> int:
 
     # Print list update (volume*density for printable V3 parts only)
     density_g_per_mm3 = 0.00124  # PLA approx 1.24 g/cc
-    printable = [o for o in doc.Objects if o.Name.startswith("V3_") and hasattr(o, "Shape") and not o.Shape.isNull()]
+    printable_name_tokens = ("pod_shell_hatch", "prop_brake_pin_housing")
+    printable = [
+        o
+        for o in doc.Objects
+        if o.Name.startswith("V3_")
+        and hasattr(o, "Shape")
+        and not o.Shape.isNull()
+        and any(t in o.Name.lower() for t in printable_name_tokens)
+    ]
+    non_printed = [
+        o.Name
+        for o in doc.Objects
+        if o.Name.startswith("V3_")
+        and hasattr(o, "Shape")
+        and not o.Shape.isNull()
+        and o not in printable
+    ]
     with OUT_PRINT_MD.open("w", encoding="utf-8") as f:
         f.write("# V3 Updated Print List\n\n")
+        f.write("Printed-envelope estimate only. Electronics, motors, and propeller envelopes are excluded.\n\n")
         f.write("| Part | Volume (mm^3) | Density (g/mm^3) | Mass est (g) |\n")
         f.write("|---|---:|---:|---:|\n")
         for o in printable:
             vol = float(o.Shape.Volume)
             f.write(f"| {o.Name} | {vol:.3f} | {density_g_per_mm3:.6f} | {vol * density_g_per_mm3:.3f} |\n")
+        f.write("\n## Excluded from printed-parts list\n\n")
+        for n in sorted(non_printed):
+            f.write(f"- {n}\n")
 
     # Wing report lines
     wing_summary = []
@@ -735,17 +816,56 @@ def run() -> int:
         f.write(f"output_step: {OUT_STEP}\n")
         f.write(f"lift_prop_diameter_mm: {lift_prop_d}\n")
         f.write(f"clearance_failures: {sum(1 for r in clearance_rows if r.pass_fail=='FAIL')}\n")
+        f.write(f"clearance_not_verified: {sum(1 for r in clearance_rows if r.pass_fail=='NOT_VERIFIED')}\n")
         f.write(f"unchanged_bbox_changes: {len(changed_unchanged)}\n")
         if wing_summary:
             f.write("wing_summary:\n")
             for s in wing_summary:
                 f.write(f"  - {s}\n")
 
-    if changed_unchanged and not args.force:
+    missing_mass_rows = [r for r in mass_rows if str(r.mass_g).upper() == "MISSING"]
+    practical_status = "partially verified - not flight-ready"
+    with OUT_PRACTICAL_MD.open("w", encoding="utf-8") as f:
+        f.write("# V3 Practical Validation Summary\n\n")
+        f.write(f"- Overall status: **{practical_status}**\n")
+        f.write("- Coordinate axis used: **+Y is up**, ground reference from identified landing-gear geometry (`YMin`).\n")
+        f.write("- This is a design-validation report only; **not a flight certification**.\n\n")
+        f.write("## Geometry verification\n\n")
+        f.write(f"- Clearance FAIL rows: `{sum(1 for r in clearance_rows if r.pass_fail=='FAIL')}`\n")
+        f.write(f"- Clearance NOT_VERIFIED rows: `{sum(1 for r in clearance_rows if r.pass_fail=='NOT_VERIFIED')}`\n")
+        f.write("- `MISSING_TARGET` and invalid/non-finite distances are always reported as `NOT_VERIFIED`.\n")
+        f.write("- Rear prop checks include V-tail and ground-distance rows.\n\n")
+        f.write("## Mass and CG model\n\n")
+        f.write(f"- CAD tagged mass sum: `{total_m:.3f} g`\n")
+        f.write(f"- CAD tagged CG X: `{cg_x_final:.3f} mm`\n")
+        f.write(f"- Missing-mass row count: `{len(missing_mass_rows)}`\n")
+        f.write("- Estimated complete takeoff mass: **NOT VERIFIED** (missing hardware/structure masses remain).\n")
+        f.write("- 12-group reconciliation: retained as reference baseline from prior V2 assumptions; not treated as verified takeoff mass.\n\n")
+        f.write("## Practical propulsion/electrical checks\n\n")
+        if total_m > 0:
+            weight_n = (total_m / 1000.0) * 9.80665
+            tw_target = 2.0
+            total_thrust_target_n = weight_n * tw_target
+            per_lift_motor_target_n = total_thrust_target_n / 4.0
+            f.write(f"- Assumption: minimum VTOL thrust-to-weight target `{tw_target:.1f}` (conservative).\n")
+            f.write(f"- Required total thrust target: `{total_thrust_target_n:.2f} N`.\n")
+            f.write(f"- Lift-motor target at 4 motors: `{per_lift_motor_target_n:.2f} N` each.\n")
+        f.write("- Rear motor/prop compatibility: **NOT VERIFIED** (datasheet performance map unavailable in this run).\n")
+        f.write("- ESC current margin: **NOT VERIFIED**.\n")
+        f.write("- Battery current and C-rating requirement: **NOT VERIFIED**.\n")
+        f.write("- PM07 / fuse / connector current path margin: **NOT VERIFIED**.\n")
+        f.write("- Unknowns remain; do not claim practical flight readiness.\n")
+
+    if changed_unchanged and not allow_unverified:
         raise BuildError(f"Untouched-object bounding boxes changed: {changed_unchanged}")
 
-    if any_fail and not args.force:
+    if any_fail:
         raise BuildError("Clearance failures detected (see V3_clearance_report.csv). Refusing finalization.")
+    if any_not_verified and not allow_unverified:
+        raise BuildError(
+            "Clearance verification incomplete: NOT_VERIFIED rows present (missing targets and/or invalid distances). "
+            "Provide required geometry/datasheet inputs or rerun with --allow-unverified."
+        )
 
     # Final recompute health check.
     doc.recompute()
@@ -753,7 +873,7 @@ def run() -> int:
         errs = list(getattr(doc, "Errors", []))
     except Exception:
         errs = []
-    if errs and not args.force:
+    if errs and not allow_unverified:
         raise BuildError(f"Document reports errors: {errs}")
 
     logger.log("DONE_V3")
