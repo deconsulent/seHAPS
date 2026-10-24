@@ -1,0 +1,7 @@
+wing_5deg dihedral verification
+target=5.0deg
+wing bbox X[-370.0,-46.4] Y[51.1,215.6] Z[-1233.2,1233.2]
+theory tip_rise=107.8mm half_span=1236.5mm
+spar-measured angle ~4.994deg (see fix log)
+ASSEm hidden=True removed_from_vtol=True
+Wing_5deg in vtol=True

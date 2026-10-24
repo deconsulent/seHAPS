@@ -1,0 +1,11 @@
+V1.2 tube carbon-vs-alu (beam theory, point/distributed cantilever)
+wing_spar CF_pultruded mass=109.3g defl=5.8mm stress=25.0MPa margin=16.03x EI=245.0
+wing_spar AL6061_T6 mass=184.5g defl=11.3mm stress=25.0MPa margin=6.01x EI=125.1
+boom CF_pultruded mass=192.7g defl=119.3mm stress=124.3MPa margin=3.22x EI=245.0
+boom AL6061_T6 mass=325.3g defl=233.7mm stress=124.3MPa margin=1.21x EI=125.1
+tail_arm CF_pultruded mass=22.6g defl=8.5mm stress=69.0MPa margin=5.80x EI=39.1
+tail_arm AL6061_T6 mass=38.2g defl=16.7mm stress=69.0MPa margin=2.17x EI=20.0
+gear_leg CF_pultruded mass=6.8g defl=0.9mm stress=77.6MPa margin=5.15x EI=39.1
+gear_leg AL6061_T6 mass=11.5g defl=1.7mm stress=77.6MPa margin=1.93x EI=20.0
+
+Totals CF=663g AL=1119g saving=456g

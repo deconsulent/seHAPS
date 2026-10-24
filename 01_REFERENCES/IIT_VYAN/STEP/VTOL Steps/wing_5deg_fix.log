@@ -1,0 +1,26 @@
+orig Part__Feature244 label=aileron plm=Placement [Pos=(-302.844,104.722,-369.7), Yaw-Pitch-Roll=(175.76,7.01191e-15,180)]
+orig Part__Feature257 label=aileronright plm=Placement [Pos=(-302.851,104.828,1110.7), Yaw-Pitch-Roll=(176.935,7.0142e-15,180)]
+orig ASSEMBLY aileron011/aileron bbox X[-370,-303] Y[94,110] Z[-1111,-370] plm=Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]
+orig ASSEMBLY aileronright011/aileronright bbox X[-370,-303] Y[93,110] Z[370,1111] plm=Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]
+opened V1_2_FIXED_5DEG objs=395
+removing 4 bad spars
+wing bbox X[-370.0,-46.4] Y[51.1,215.6] Z[-1233.2,1233.2]
+CHORD=323.66 LE=-46.36 HALF=1236.5 spar_len=1241.2
+  new spar f=0.25 side=+1 Z[-1,1237] Y[74,194]
+  new spar f=0.25 side=-1 Z[-1237,1] Y[74,194]
+  new spar f=0.6 side=+1 Z[-0,1237] Y[75,193]
+  new spar f=0.6 side=-1 Z[-1237,0] Y[75,193]
+added 4 corrected spars
+reverted Part__Feature244 to Placement [Pos=(-302.844,104.722,-369.7), Yaw-Pitch-Roll=(175.76,7.01191e-15,180)]
+reverted Part__Feature257 to Placement [Pos=(-302.851,104.828,1110.7), Yaw-Pitch-Roll=(176.935,7.0142e-15,180)]
+aileron pre bbox X[-370,-303] Y[94,110] Z[-1111,-370] zc=-740 side=-1
+aileron post rot +5.0deg bbox Y[126,206] Z[-1105,-366] plm=Placement [Pos=(5.68434e-14,0.302674,-6.93237), Yaw-Pitch-Roll=(0,0,5)]
+aileronright pre bbox X[-370,-303] Y[93,110] Z[370,1111] zc=740 side=+1
+aileronright post rot -5.0deg bbox Y[125,206] Z[366,1105] plm=Placement [Pos=(5.68434e-14,0.302674,6.93237), Yaw-Pitch-Roll=(0,-0,-5)]
+saved D:\Projects\ISR\BALTIC_TILTROTOR_V1 - test\01_REFERENCES\IIT_VYAN\STEP\VTOL Steps\V1_2_FIXED_5DEG.FCStd (15445574 bytes)
+VERIFY spar-based: dy=120.1 dz=1237.5 dia=12.0 -> angle=4.994deg (target 5.0)
+VERIFY construction: tip_rise=107.8mm over half-span 1236.5mm -> 5.0deg exact
+excluding 87 old-wing objs
+exporting 176 Part::Feature objects via Import.export...
+full STEP -> D:\Projects\ISR\BALTIC_TILTROTOR_V1 - test\01_REFERENCES\IIT_VYAN\STEP\VTOL Steps\V1_2_FIXED_5DEG_FULL.STEP (52627735 bytes)
+DONE_FIX

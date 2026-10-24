@@ -1,0 +1,31 @@
+opened V1_2_FIXED objs=381
+stock battery bbox X[-240,-155] Y[-56,-11] Z[-35,35]
+new 6S2P pack X[-264,-132] Y[-74,18] Z[-24,24] vol=528480
+hid cluster bldc_motor_Varsayilan (7 parts)
+hid cluster bldc_motor_Varsayilan001 (7 parts)
+hid cluster bldc_motor_Varsayilan002 (7 parts)
+hid cluster bldc_motor_Varsayilan003 (7 parts)
+added 4x MN3510 envelopes at [(488, 405), (493, -405), (-808, 405), (-808, -405)]
+stock rear motor dx=38 (38) at X[-610,-572]
+new AT2814 envelope X[-644,-610] dia=36.0
+esc_4in1_45A_V2 X[-60,-15] Y[-64,-52]
+esc_rear_30A_V2 X[-60,-25] Y[-64,-56]
+CG target X in [-143.5,-127.3] (25-30% chord from LE -46.36)
+mass rollup total=3182g (spec 3182g)
+  wing_group          400g @ X= -208.2  dx=  -14.5 from CG
+  pod_group           300g @ X=  -48.0  dx= +145.7 from CG
+  tail_mounts_group   250g @ X= -500.0  dx= -306.3 from CG
+  lift_motors_4       480g @ X= -158.8  dx=  +35.0 from CG
+  rear_motor           90g @ X= -594.0  dx= -400.3 from CG
+  esc_props_wire      350g @ X=  -48.0  dx= +145.7 from CG
+  electronics          84g @ X=  -49.0  dx= +144.7 from CG
+  battery_6S2P        928g @ X= -197.5  dx=   -3.8 from CG
+  camera              120g @ X=    5.0  dx= +198.7 from CG
+  servos_pitot        180g @ X= -336.0  dx= -142.3 from CG
+CG_X = -193.7  (target [-143.5,-127.3])
+CG OUT OF RANGE by -58.4mm -> move 6S2P pack to X=3 (tray shift +200mm) for CG=-135
+tray slot needed: pack half-len 66 + shift -> verify pod bay X[-450,354] fits [-63,69]
+saved D:\Projects\ISR\BALTIC_TILTROTOR_V1 - test\01_REFERENCES\IIT_VYAN\STEP\VTOL Steps\V1_2_FIXED_V2.FCStd (15433509 bytes)
+exporting 233 objects...
+STEP -> D:\Projects\ISR\BALTIC_TILTROTOR_V1 - test\01_REFERENCES\IIT_VYAN\STEP\VTOL Steps\V1_2_FIXED_V2_FULL.STEP (31777168 bytes)
+DONE_V2

@@ -1,0 +1,36 @@
+opened V1_2_FIXED label=V1_2_FIXED objects=381
+ASSEm type=App::Part placement=Placement [Pos=(160.556,-480.512,401.705), Yaw-Pitch-Roll=(180,7.01671e-15,180)]
+old wing bbox X[-370.0,-46.4] dx=323.7 Y[21.9,137.1] dy=115.2 Z[-1236.5,1236.5] dz=2473.0 vol=2783282
+CHORD=323.66 SPAN=2472.97 LE_X=-46.36 YC=79.54 ZC=0.00
+DIH=5.0deg HALF=1236.5 tip_rise=107.8 half_proj=1231.8
+airfoil face valid=True area=14016
+half R bbox dx=323.7 dy=164.5 dz=1236.7
+half L bbox dx=323.7 dy=164.5 dz=1236.7
+fused wing local bbox X[-323.7,0.0] Y[-16.5,148.0] Z[-1233.2,1233.2] vol=34635190
+face centre y=11.90 -> translate (-46.36,67.64,0.00)
+placed wing bbox X[-370.0,-46.4] Y[51.1,215.6] Z[-1233.2,1233.2] vol=34635190
+spar frac=0.25 side=+1 dia=12.0 len=1261 bbox dy=121.9 dz=1257.5
+spar frac=0.25 side=-1 dia=12.0 len=1261 bbox dy=121.9 dz=1257.5
+spar frac=0.6 side=+1 dia=10.0 len=1261 bbox dy=119.9 dz=1257.3
+spar frac=0.6 side=-1 dia=10.0 len=1261 bbox dy=119.9 dz=1257.3
+created Wing_5deg label=Wing_5deg
+added wing solid vol=34635190
+added 4 spars
+vtol members before=18
+removed ASSEm from vtol.Group
+added Wing_5deg to vtol.Group
+vtol members after=18
+ASSEm.Visibility=False
+hid 84 old-wing sub-objects
+aileron: side=-1 zc=-372 rotated +5.0deg about Y=79.5 -> new placement Placement [Pos=(-302.844,136.848,-366.098), Yaw-Pitch-Roll=(175.776,-0.369243,175.014)]
+aileronright: side=+1 zc=1108 rotated -5.0deg about Y=79.5 -> new placement Placement [Pos=(-302.851,201.536,1104.27), Yaw-Pitch-Roll=(176.947,0.26701,-175.007)]
+recomputed
+saved FCStd -> D:\Projects\ISR\BALTIC_TILTROTOR_V1 - test\01_REFERENCES\IIT_VYAN\STEP\VTOL Steps\V1_2_FIXED_5DEG.FCStd (15445805 bytes)
+wing STEP -> D:\Projects\ISR\BALTIC_TILTROTOR_V1 - test\01_REFERENCES\IIT_VYAN\STEP\VTOL Steps\wing_5deg_only.STEP (150804 bytes)
+wing STL -> D:\Projects\ISR\BALTIC_TILTROTOR_V1 - test\01_REFERENCES\IIT_VYAN\STEP\VTOL Steps\wing_5deg_only.stl (84258 bytes)
+excluded 87 old-wing objects from full export
+exporting 176 solids to full STEP...
+full STEP -> D:\Projects\ISR\BALTIC_TILTROTOR_V1 - test\01_REFERENCES\IIT_VYAN\STEP\VTOL Steps\V1_2_FIXED_5DEG.STEP (1640 bytes)
+VERIFY new wing bbox dy=164.5 dz=2466.4 rise~136.1 halfspan~1233.2 angle~6.30deg (target 5.0)
+VERIFY old span=2473.0 new projected dz=2466.4 (expect 2463.6)
+DONE

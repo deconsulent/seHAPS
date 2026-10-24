@@ -1,0 +1,31 @@
+battery moved +167.5 -> X[-96,36]
+Pixhawk_4 -> X[109,193] Y[-64,-51]
+esc4 -> X[110,155]; escr -> X[160,195] Z[35,60]
+CG_X=-139.6 target=[-143.5,-127.3] -> IN RANGE
+  OVERLAP newfuse030                   X[-450,354] Y[-187,135] Z[-104,98]
+  OVERLAP Pixhawk_4                    X[-91,-7] Y[-59,-51] Z[-24,20]
+  OVERLAP Pixhawk_001                  X[-65,-60] Y[-59,-53] Z[-9,-1]
+  OVERLAP Pixhawk_002                  X[-57,-52] Y[-59,-53] Z[-9,2]
+  OVERLAP Pixhawk_003                  X[-28,-24] Y[-59,-53] Z[-21,-11]
+  OVERLAP Pixhawk_004                  X[-73,-68] Y[-59,-53] Z[-21,-14]
+  OVERLAP Pixhawk_005                  X[-73,-68] Y[-59,-53] Z[-10,-3]
+  OVERLAP Pixhawk_006                  X[-48,-44] Y[-59,-53] Z[-21,-13]
+  OVERLAP Pixhawk_007                  X[-57,-52] Y[-59,-53] Z[-21,-13]
+  OVERLAP Pixhawk_008                  X[-65,-60] Y[-59,-53] Z[-21,-13]
+  OVERLAP Pixhawk_009                  X[-14,-10] Y[-59,-53] Z[-21,-11]
+  OVERLAP Pixhawk_010                  X[-48,-44] Y[-59,-53] Z[-9,2]
+  OVERLAP Pixhawk_011                  X[-48,-44] Y[-59,-53] Z[7,17]
+  OVERLAP Pixhawk_012                  X[-65,-60] Y[-59,-53] Z[4,17]
+  OVERLAP Pixhawk_013                  X[-80,-76] Y[-59,-53] Z[-8,4]
+  OVERLAP Pixhawk_014                  X[-73,-68] Y[-59,-53] Z[1,17]
+  OVERLAP Pixhawk_015                  X[-57,-52] Y[-59,-53] Z[8,17]
+  OVERLAP Pixhawk_016                  X[-88,-83] Y[-59,-53] Z[1,17]
+  OVERLAP Pixhawk_017                  X[-88,-83] Y[-59,-53] Z[-21,-5]
+  OVERLAP Pixhawk_018                  X[-91,-89] Y[-60,-59] Z[-9,2]
+  OVERLAP Pixhawk_019                  X[-42,-34] Y[-58,-55] Z[-24,-19]
+  OVERLAP Pixhawk_020                  X[-91,-7] Y[-64,-59] Z[-24,20]
+  OVERLAP vtol                         X[-1465,458] Y[-187,361] Z[-1236,1236]
+non-shell overlaps in slide corridor: 23
+gimbal top Y=-84 vs pack bottom Y=-74 -> gap=10mm (tray floor max 3mm)
+saved V2 (placements updated in place)
+DONE_R2

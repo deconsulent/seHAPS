@@ -1,0 +1,9 @@
+Criterion,Weight,A_Servo_Pushrod,B_Direct,C_Geared_4bar,Notes
+Mass,0.20,3,5,2,A 85-110g per side,B 45-65g,C 130-170g
+Complexity,0.15,4,5,2,A 3 prints+rod,B 2 parts,C 5+parts+CNC
+Backlash,0.15,3,4,3,A 0.5-1.2deg ball-link,B spline 0.3-0.6deg,C worm great spur moderate
+Manufacturability,0.15,5,4,2,A print+M3 off-shelf,B servo-block precision,C CNC/sector
+Serviceability,0.10,5,3,2,A field rod swap,B servo replace,C gear shimming
+Strength,0.15,4,2,4,A bearings isolate,B spline weak,C load on gear
+Cost,0.10,5,4,2,A cheap,B strong servo pricier,C gears/CNC
+Weighted total,1.00,4.05,3.95,2.45,weighted sum 1-5 scale; A selected for V1
